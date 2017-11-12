@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show]
+
   def index  
   end
 
@@ -12,11 +13,12 @@ class PostsController < ApplicationController
 
   def create
     @post = Post.new(post_params)
+    @post.user = current_user
 
     if @post.save
       redirect_to @post, notice: 'Your post have been successfully created'
     else
-      redirect_to @posts
+      render :new
     end
   end
 
